@@ -23,9 +23,9 @@ public class BackgroundAreaEditor : Editor {
         //_target.tile1 = (GameObject)EditorGUILayout.ObjectField("Surface Object Tile 1", _target.tile1, typeof(GameObject), true);
         //_target.tile2 = (GameObject)EditorGUILayout.ObjectField("Surface Object Tile 2", _target.tile2, typeof(GameObject), true);
         //_target.tile3 = (GameObject)EditorGUILayout.ObjectField("Surface Object Tile 3", _target.tile3, typeof(GameObject), true);
-        _target.tilesize = EditorGUILayout.FloatField("Matrix Size for generation", _target.tilesize);
-        _target.matrixsizey = EditorGUILayout.IntField("Matrix Size for generation", _target.matrixsizey);
-        _target.matrixsizex = EditorGUILayout.IntField("Matrix Size for generation", _target.matrixsizex);
+        _target.tilesize = EditorGUILayout.FloatField("Tamaño de los Tiles", _target.tilesize);
+        _target.matrixsizey = EditorGUILayout.IntField("Cuadraditos de Largo (en X)", _target.matrixsizey);
+        _target.matrixsizex = EditorGUILayout.IntField("Cuadraditos de Alto (en Y)", _target.matrixsizex);
         //EditorGUILayout.BeginHorizontal(); // ESTO LO NECESITO PARA ALGO, LA VDD NO ME ACUERDO QUE :l...
         //{
         //    if (GUILayout.Button("Generate Map"))
@@ -42,7 +42,7 @@ public class BackgroundAreaEditor : Editor {
         //EditorGUILayout.EndHorizontal();
         EditorGUILayout.BeginHorizontal();
         {
-            if (GUILayout.Button("Test for new project"))
+            if (GUILayout.Button("Crear Matriz"))
             {
                 _target.creatematrixandmap = true;
             }
@@ -54,7 +54,10 @@ public class BackgroundAreaEditor : Editor {
             else GUI.DrawTexture(GUILayoutUtility.GetRect(15, 15, 15, 15), (Texture2D)Resources.Load("disabled"));
         }
         EditorGUILayout.EndHorizontal();
-        EditorGUILayout.LabelField("HOW TO CREATE MAP ON EDIT MODE:", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("PARA HACER LA MATRIZ EN EDITOR MODE", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("MANDALE LOS PARAMETROS QUE QUERES Y", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("MOVE EL MANAGER UN TOKE PARA QUE PASE", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("DE FRAME, DPS LO HACEMOS BIEN", EditorStyles.boldLabel);
     }
     private void FixValues()
     {

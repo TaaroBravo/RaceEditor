@@ -40,13 +40,13 @@ public class PlayableAreaManager : MonoBehaviour {
     {
         if (createlevel)
         {
-            ClearCurrentMap();
+            //ClearCurrentMap();
             CreateMap(positions, tiles);
             createlevel = false;
         }
         if (creatematrixandmap)
         {
-            ClearCurrentMap();
+            //ClearCurrentMap();
             UpdateMatrixSize();
             CreateMap(positions, tiles);
             _drawgizmomatrix = true;
@@ -94,33 +94,33 @@ public class PlayableAreaManager : MonoBehaviour {
             positions.Add(new List<Vector3>(test2));
         }
     }
-    void ClearCurrentMap()
-    {
-        GameObject[] _playeabletiles = GameObject.FindGameObjectsWithTag("PlayeableTiles");
-        GameObject[] _roadtiles = GameObject.FindGameObjectsWithTag("RoadTiles");
-        GameObject[] _watertiles = GameObject.FindGameObjectsWithTag("WaterTiles");
-        if (_playeabletiles.Length != 0)
-        {
-            for (int i = 0; i < _playeabletiles.Length; i++)
-            {
-                Destroy(_playeabletiles[i]);
-            }
-        }
-        if (_roadtiles.Length != 0)
-        {
-            for (int i = 0; i < _roadtiles.Length; i++)
-            {
-                Destroy(_roadtiles[i]);
-            }
-        }
-        if (_watertiles.Length != 0)
-        {
-            for (int i = 0; i < _watertiles.Length; i++)
-            {
-                Destroy(_watertiles[i]);
-            }
-        }
-    }
+    //void ClearCurrentMap()
+    //{
+    //GameObject[] _playeabletiles = GameObject.FindGameObjectsWithTag("PlayeableTiles");
+    //GameObject[] _roadtiles = GameObject.FindGameObjectsWithTag("RoadTiles");
+    //GameObject[] _watertiles = GameObject.FindGameObjectsWithTag("WaterTiles");
+    //    if (_playeabletiles.Length != 0)
+    //    {
+    //        for (int i = 0; i < _playeabletiles.Length; i++)
+    //        {
+    //            Destroy(_playeabletiles[i]);
+    //        }
+    //    }
+    //    if (_roadtiles.Length != 0)
+    //    {
+    //        for (int i = 0; i < _roadtiles.Length; i++)
+    //        {
+    //            Destroy(_roadtiles[i]);
+    //        }
+    //    }
+    //    if (_watertiles.Length != 0)
+    //    {
+    //        for (int i = 0; i < _watertiles.Length; i++)
+    //        {
+    //            Destroy(_watertiles[i]);
+    //        }
+    //    }
+    //}
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
