@@ -33,3 +33,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.cs
+*.meta
+Assets/Scenes/Tiles.unity
+Assets/Scenes/Tiles.unity
