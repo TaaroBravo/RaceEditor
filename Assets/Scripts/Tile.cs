@@ -21,7 +21,7 @@ public class Tile : MonoBehaviour
     private int eTile;
     private int sTile;
     public int index = 0;
-    public List<Texture> allTexture = new List<Texture>();
+    public List<Texture2D> allTexture = new List<Texture2D>();
 
     void Update()
     {
@@ -87,7 +87,7 @@ public class Tile : MonoBehaviour
         }
         index = nTile * 1 + eTile * 2 + sTile * 4 + oTile * 8;
         //Debug.Log(index);
-        GetComponent<Renderer>().material.mainTexture = allTexture[index];
+        GetComponent<Renderer>().sharedMaterial.mainTexture = allTexture[index];
 
     }
 

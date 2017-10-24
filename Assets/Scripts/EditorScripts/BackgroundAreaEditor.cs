@@ -20,7 +20,7 @@ public class BackgroundAreaEditor : Editor {
     private void ShowValues()
     {
         EditorGUILayout.LabelField("Parameters", EditorStyles.boldLabel);
-        //_target.tile1 = (GameObject)EditorGUILayout.ObjectField("Surface Object Tile 1", _target.tile1, typeof(GameObject), true);
+        _target.tile1 = (GameObject)EditorGUILayout.ObjectField("Surface Object Tile 1", _target.tile1, typeof(GameObject), true);
         //_target.tile2 = (GameObject)EditorGUILayout.ObjectField("Surface Object Tile 2", _target.tile2, typeof(GameObject), true);
         //_target.tile3 = (GameObject)EditorGUILayout.ObjectField("Surface Object Tile 3", _target.tile3, typeof(GameObject), true);
         _target.tilesize = EditorGUILayout.FloatField("Tamaño de los Tiles", _target.tilesize);
