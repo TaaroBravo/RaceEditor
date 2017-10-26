@@ -1,34 +1,62 @@
 
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+//using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
 
-//[ExecuteInEditMode]
-//public class TilesManager : MonoBehaviour {
+[ExecuteInEditMode]
+public class TilesManager : Editor
+{
+    public static List<Tile> allTiles = new List<Tile>();
+    public static bool imDrawing;
+    public static bool imCleaning;
 
-//    public List<GameObject> allTiles = new List<GameObject>();
-	
-//	void Update () {
+    void Update()
+    {
+        if (imDrawing)
+            DrawRoads();
+    }
 
-//        SearchingAllTiles();
-        
-         
-//	}
+    public static void DrawRoads()
+    {
+        foreach (var item in allTiles)
+        {
+            if(item.gameObject == Selection.activeGameObject)
+            {
+                Debug.Log("Dibujando este Road");
+                item.imRoad = true;
+            }
+            //Debug.Log(Selection.activeGameObject);
+        }
+    }
 
-//    void SearchingAllTiles()
-//    {
-//        foreach (var tile in GameObject.FindGameObjectsWithTag("Tile"))
-//        {
-//            if (allTiles.Count != 0)
-//            {
-//                for (int i = 0; i < allTiles.Count; i++)
-//                {
-//                    if (allTiles[i] != tile)
-//                        allTiles.Add(tile);
-//                }
-//            }
-//            else
-//                allTiles.Add(tile);
-//        }
-//    }
-//}
+    public static void CleanSelectedRoads()
+    {
+        foreach (var item in allTiles)
+        {
+            if (item.gameObject == Selection.activeGameObject)
+            {
+                item.imRoad = false;
+            }
+        }
+    }
+
+    public static void SearchingAllTiles()
+    {
+        allTiles.Clear();
+        foreach (var tile in GameObject.FindGameObjectsWithTag("Tile"))
+        {
+            allTiles.Add(tile.GetComponent<Tile>());
+            //if (allTiles.Count != 0)
+            //{
+            //    for (int i = 0; i < allTiles.Count; i++)
+            //    {
+            //        if (allTiles[i] != tile)
+            //            allTiles.Add(tile.GetComponent<Tile>());
+            //    }
+            //}
+            //else
+            //    allTiles.Add(tile.GetComponent<Tile>());
+        }
+    }
+}

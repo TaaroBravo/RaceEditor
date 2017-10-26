@@ -12,6 +12,8 @@ public class Tile : MonoBehaviour
     public float _xBound;
     public float _zBound;
 
+    public bool imRoad;
+
     public Vector3 myPos;
     public List<GameObject> neighborhoods = new List<GameObject>();
     public List<int> connections = new List<int> { 0, 0, 0, 0 };
@@ -21,7 +23,7 @@ public class Tile : MonoBehaviour
     private int eTile;
     private int sTile;
     public int index = 0;
-    public List<Texture> allTexture = new List<Texture>();
+    public List<Texture2D> allTexture = new List<Texture2D>();
 
     void Update()
     {
@@ -29,13 +31,21 @@ public class Tile : MonoBehaviour
         {
             if (neighborhoods == null)
             {
-                CalculateNeighborhoods();
+                if (imRoad)
+                    CalculateNeighborhoods();
+                else
+                    NotRoad();
             }
             if (myPos != transform.position)
             {
                 CalculateCollision();
-                neighborhoods.Clear();
-                CalculateNeighborhoods();
+                if (imRoad)
+                {
+                    neighborhoods.Clear();
+                    CalculateNeighborhoods();
+                }
+                else
+                    NotRoad();
             }
             myPos = transform.position;
             if (_xBound == 0)
@@ -51,6 +61,11 @@ public class Tile : MonoBehaviour
     {
         _xBound = GetComponent<Collider>().bounds.extents.x;
         _zBound = GetComponent<Collider>().bounds.extents.z;
+    }
+
+    void NotRoad()
+    {
+        GetComponent<Renderer>().sharedMaterial = new Material (Shader.Find("Diffuse"));
     }
 
     void CalculateNeighborhoods()
@@ -86,8 +101,7 @@ public class Tile : MonoBehaviour
             nTile = 1;
         }
         index = nTile * 1 + eTile * 2 + sTile * 4 + oTile * 8;
-        //Debug.Log(index);
-        GetComponent<Renderer>().material.mainTexture = allTexture[index];
+        GetComponent<Renderer>().sharedMaterial.mainTexture = allTexture[index];
 
     }
 
