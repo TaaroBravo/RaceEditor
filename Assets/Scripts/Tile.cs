@@ -13,7 +13,6 @@ public class Tile : MonoBehaviour
     public float _zBound;
 
     public bool imRoad;
-
     public Vector3 myPos;
     public List<GameObject> neighborhoods = new List<GameObject>();
     public List<int> connections = new List<int> { 0, 0, 0, 0 };
@@ -107,8 +106,6 @@ public class Tile : MonoBehaviour
 
     void CalculateCollision()
     {
-        //Como hacer un enroque entre tiles?
-
         foreach (var obj in Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents / 2))
         {
             if (obj.transform.gameObject.tag == "Tile" && obj.transform.gameObject != transform.gameObject)
