@@ -110,17 +110,6 @@ public class MatrixCreatorWindows : EditorWindow
         }
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
-        TilesManager.imDrawing = EditorGUILayout.Toggle("Draw Roads", TilesManager.imDrawing);
-        if(TilesManager.imDrawing)
-        {
-            TilesManager.DrawRoads();
-        }
-        TilesManager.imCleaning = EditorGUILayout.Toggle("Clean Selecting Roads", TilesManager.imCleaning);
-        if (TilesManager.imCleaning)
-        {
-            TilesManager.CleanSelectedRoads();
-        }
-
         GUI.DrawTexture(GUILayoutUtility.GetRect(10, 10, 20, 23), (Texture2D)Resources.Load("TackCreation3Header"));
         EditorGUILayout.BeginHorizontal(GUILayout.Width(200));
         EditorGUILayout.LabelField("Gizmo Helpers:", EditorStyles.boldLabel);
@@ -154,9 +143,9 @@ public class MatrixCreatorWindows : EditorWindow
             {
                 for (int e = 0; e < _currentiles.Length; e++)
                 {
+                    _currentiles[e].transform.position += new Vector3(0, 0.05f, 0);
                     _currentiles[e].GetComponent<Tile>().allTexture = _base;
                 }
-                _currentiles[Random.Range(0, _currentiles.Length - 1)].transform.position += new Vector3(0, 0.05f, 0);
             }
         }
         EditorGUILayout.EndHorizontal();
@@ -183,9 +172,11 @@ public class MatrixCreatorWindows : EditorWindow
                     {
                         for (int e = 0; e < _currentiles.Length; e++)
                         {
+                            _currentiles[e].transform.position += new Vector3(0, 0.05f, 0);
                             _currentiles[e].GetComponent<Tile>().allTexture = _availablestilesets[i];
                         }
-                        _currentiles[Random.Range(0, _currentiles.Length - 1)].transform.position += new Vector3(0, 0.05f, 0);
+
+                        _currentiles[Random.Range(0, _currentiles.Length - 1)].transform.position += new Vector3(0, 0.1f, 0);
                     }
                 }
                 if (GUILayout.Button("Remove"))
