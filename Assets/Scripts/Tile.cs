@@ -14,7 +14,7 @@ public class Tile : MonoBehaviour
 
     public bool imRoad;
     public Vector3 myPos;
-    public List<GameObject> neighborhoods = new List<GameObject>();
+    public List<Tile> neighborhoods = new List<Tile>();
     public List<int> connections = new List<int> { 0, 0, 0, 0 };
 
     private int nTile;
@@ -26,34 +26,32 @@ public class Tile : MonoBehaviour
 
     void Update()
     {
-        if (Application.isEditor)
+        if (neighborhoods == null)
         {
-            if (neighborhoods == null)
-            {
-                if (imRoad)
-                    CalculateNeighborhoods();
-                else
-                    NotRoad();
-            }
-            if (myPos != transform.position)
-            {
-                CalculateCollision();
-                if (imRoad)
-                {
-                    neighborhoods.Clear();
-                    CalculateNeighborhoods();
-                }
-                else
-                    NotRoad();
-            }
-            myPos = transform.position;
-            if (_xBound == 0)
-                CalculateBounds();
-            Vector3 currentPosition = transform.position;
-            float xDifference = currentPosition.x % gridScale;
-            float zDifference = currentPosition.z % gridScale;
-            transform.position = new Vector3(currentPosition.x - xDifference, yPos, currentPosition.z - zDifference);
+            if (imRoad)
+                CalculateNeighborhoods();
+            else
+                NotRoad();
         }
+        if (myPos != transform.position)
+        //if(Vector3.Distance(myPos, transform.position) >= 2)
+        {
+            CalculateCollision();
+            if (imRoad)
+            {
+                neighborhoods.Clear();
+                CalculateNeighborhoods();
+            }
+            else
+                NotRoad();
+        }
+        myPos = transform.position;
+        if (_xBound == 0)
+            CalculateBounds();
+        Vector3 currentPosition = transform.position;
+        float xDifference = currentPosition.x % gridScale;
+        float zDifference = currentPosition.z % gridScale;
+        transform.position = new Vector3(currentPosition.x - xDifference, yPos, currentPosition.z - zDifference);
     }
 
     void CalculateBounds()
@@ -62,12 +60,12 @@ public class Tile : MonoBehaviour
         _zBound = GetComponent<Collider>().bounds.extents.z;
     }
 
-    void NotRoad()
+    public void NotRoad()
     {
-        GetComponent<Renderer>().sharedMaterial = new Material (Shader.Find("Diffuse"));
+        GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
     }
 
-    void CalculateNeighborhoods()
+    public void CalculateNeighborhoods()
     {
         index = 0;
         oTile = 0;
@@ -75,29 +73,38 @@ public class Tile : MonoBehaviour
         eTile = 0;
         sTile = 0;
         RaycastHit hit;
-        //neighborhoods.Add(Physics.Raycast(transform.position, -transform.right * (_zBound + 0.5f), out hit) ? hit.collider.gameObject : null);
-        //neighborhoods.Add(Physics.Raycast(transform.position, transform.forward * (_xBound + 0.5f), out hit) ? hit.collider.gameObject : null);
-        //neighborhoods.Add(Physics.Raycast(transform.position, transform.right * (_zBound + 0.5f), out hit) ? hit.collider.gameObject : null);
-        //neighborhoods.Add(Physics.Raycast(transform.position, -transform.forward * (_xBound + 0.5f), out hit) ? hit.collider.gameObject : null);
         if (Physics.Raycast(transform.position, -transform.right, out hit, _zBound + 0.5f))
         {
-            neighborhoods.Add(hit.collider.gameObject);
-            eTile = 1;
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            {
+                neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
+                eTile = 1;
+            }
         }
         if (Physics.Raycast(transform.position, transform.forward, out hit, _xBound + 0.5f))
         {
-            neighborhoods.Add(hit.collider.gameObject);
-            sTile = 1;
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            {
+                neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
+                sTile = 1;
+            }
         }
         if (Physics.Raycast(transform.position, transform.right, out hit, _zBound + 0.5f))
         {
-            neighborhoods.Add(hit.collider.gameObject);
-            oTile = 1;
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            {
+                neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
+                oTile = 1;
+            }
+            
         }
         if (Physics.Raycast(transform.position, -transform.forward, out hit, _xBound + 0.5f))
         {
-            neighborhoods.Add(hit.collider.gameObject);
-            nTile = 1;
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            {
+                neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
+                nTile = 1;
+            }    
         }
         index = nTile * 1 + eTile * 2 + sTile * 4 + oTile * 8;
         GetComponent<Renderer>().sharedMaterial.mainTexture = allTexture[index];
