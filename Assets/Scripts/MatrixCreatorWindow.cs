@@ -143,9 +143,9 @@ public class MatrixCreatorWindows : EditorWindow
             {
                 for (int e = 0; e < _currentiles.Length; e++)
                 {
+                    _currentiles[e].transform.position += new Vector3(0, 0.05f, 0);
                     _currentiles[e].GetComponent<Tile>().allTexture = _base;
                 }
-                _currentiles[Random.Range(0, _currentiles.Length - 1)].transform.position += new Vector3(0, 0.05f, 0);
             }
         }
         EditorGUILayout.EndHorizontal();
@@ -172,9 +172,11 @@ public class MatrixCreatorWindows : EditorWindow
                     {
                         for (int e = 0; e < _currentiles.Length; e++)
                         {
+                            _currentiles[e].transform.position += new Vector3(0, 0.05f, 0);
                             _currentiles[e].GetComponent<Tile>().allTexture = _availablestilesets[i];
                         }
-                        _currentiles[Random.Range(0, _currentiles.Length - 1)].transform.position += new Vector3(0, 0.05f, 0);
+
+                        _currentiles[Random.Range(0, _currentiles.Length - 1)].transform.position += new Vector3(0, 0.1f, 0);
                     }
                 }
                 if (GUILayout.Button("Remove"))
