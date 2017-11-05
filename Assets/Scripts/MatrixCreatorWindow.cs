@@ -110,17 +110,6 @@ public class MatrixCreatorWindows : EditorWindow
         }
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
-        TilesManager.imDrawing = EditorGUILayout.Toggle("Draw Roads", TilesManager.imDrawing);
-        if(TilesManager.imDrawing)
-        {
-            TilesManager.DrawRoads();
-        }
-        TilesManager.imCleaning = EditorGUILayout.Toggle("Clean Selecting Roads", TilesManager.imCleaning);
-        if (TilesManager.imCleaning)
-        {
-            TilesManager.CleanSelectedRoads();
-        }
-
         GUI.DrawTexture(GUILayoutUtility.GetRect(10, 10, 20, 23), (Texture2D)Resources.Load("TackCreation3Header"));
         EditorGUILayout.BeginHorizontal(GUILayout.Width(200));
         EditorGUILayout.LabelField("Gizmo Helpers:", EditorStyles.boldLabel);

@@ -17,10 +17,15 @@ public class Tile : MonoBehaviour
     public List<Tile> neighborhoods = new List<Tile>();
     public List<int> connections = new List<int> { 0, 0, 0, 0 };
 
-    private int nTile;
-    private int oTile;
-    private int eTile;
-    private int sTile;
+    public bool blockForward;
+    public bool blockRight;
+    public bool blockLeft;
+    public bool blockBack;
+
+    public int nTile;
+    public int oTile;
+    public int eTile;
+    public int sTile;
     public int index = 0;
     public List<Texture2D> allTexture = new List<Texture2D>();
 
@@ -34,9 +39,8 @@ public class Tile : MonoBehaviour
                 NotRoad();
         }
         if (myPos != transform.position)
-        //if(Vector3.Distance(myPos, transform.position) >= 2)
         {
-            CalculateCollision();
+            //CalculateCollision();
             if (imRoad)
             {
                 neighborhoods.Clear();
@@ -75,7 +79,7 @@ public class Tile : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, -transform.right, out hit, _zBound + 0.5f))
         {
-            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad && !blockLeft)
             {
                 neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
                 eTile = 1;
@@ -83,7 +87,7 @@ public class Tile : MonoBehaviour
         }
         if (Physics.Raycast(transform.position, transform.forward, out hit, _xBound + 0.5f))
         {
-            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad && !blockForward)
             {
                 neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
                 sTile = 1;
@@ -91,7 +95,7 @@ public class Tile : MonoBehaviour
         }
         if (Physics.Raycast(transform.position, transform.right, out hit, _zBound + 0.5f))
         {
-            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad && !blockRight)
             {
                 neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
                 oTile = 1;
@@ -100,7 +104,7 @@ public class Tile : MonoBehaviour
         }
         if (Physics.Raycast(transform.position, -transform.forward, out hit, _xBound + 0.5f))
         {
-            if (hit.collider.gameObject.GetComponent<Tile>().imRoad)
+            if (hit.collider.gameObject.GetComponent<Tile>().imRoad && !blockBack)
             {
                 neighborhoods.Add(hit.collider.gameObject.GetComponent<Tile>());
                 nTile = 1;
